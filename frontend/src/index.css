@@ -1,0 +1,325 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playwrite+BE+WAL:wght@100..400&display=swap');
+
+:root {
+  --primary: #7fa6d2;
+  --secondary: #3662f5;
+  --error: red;
+  --primaryfont: 'Playwrite BE WAL', sans-serif;
+  --secondaryfont: 'Montserrat', sans-serif;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: white;
+  color: black;
+}
+
+h1 {
+  font-family: 'Playwrite BE WAL', sans-serif;
+  font-weight: 100;
+}
+
+/*Navbar */
+div .navbar {
+  max-width: 1600px;
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin: 10px;
+  border-bottom: 1px solid black;
+}
+
+div .nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+div .nav-auth {
+  display: flex;
+  gap: 20px;
+}
+
+div .nav-auth a {
+  border: 1px solid black;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+div .navbar a {
+  text-decoration: none;
+  color: black;
+}
+
+div .nav-links a:hover {
+  border-bottom: 2px solid var(--primary);
+}
+
+div .nav-auth a:hover {
+  background-color: #7fa6d2;
+}
+
+/*error*/
+div.error {
+  padding: 10px;
+  background: #ffefef;
+  border: 1px solid var(--error);
+  color: var(--error);
+  border-radius: 4px;
+  margin: 20px 0;
+}
+
+input.error {
+  border: 1px solid var(--error);
+}
+
+/*Home*/
+div .Home {
+  max-width: 1600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+div .Home-title {
+  margin: 10px;
+}
+
+div .Home-blogs {
+  max-width: 1600px;
+  display: flex;
+  gap: 20px;
+  /* Add some gap between the image and text */
+  margin: 10px;
+  padding: 10px 20px;
+  box-shadow: rgb(0, 0, 0) 0px 5px 10px;
+  border-radius: 10px;
+}
+
+.Home-blogs a {
+  text-decoration: none;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+div .blog-icons {
+  display: flex;
+  gap: 5px;
+  justify-content: end;
+}
+
+div .blog-icons span {
+  cursor: pointer;
+  background-color: #7fa6d2;
+  border-radius: 50%;
+  padding: 10px;
+  color: #fff;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  align-content: center;
+  padding: 20px;
+  border-radius: 10px;
+  background-image: url(https://img.freepik.com/free-photo/view-starry-night-sky-with-nature-mountains-landscape_23-2151614801.jpg?t=st=1722678626~exp=1722682226~hmac=1c9fed146df6831edb68823d1443c349a192a44da532ca98156d2ce6d87f6d6c&w=996);
+  max-width: 1600px;
+  height: 550px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.Blog-img-container {
+  max-width: 300px;
+  flex-shrink: 0;
+}
+
+.Blog-img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/*About Us*/
+.AboutUs-image {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  align-content: center;
+  padding: 20px;
+  border-radius: 10px;
+  background-image: url(https://images.unsplash.com/photo-1619995745882-f4128ac82ad6?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+  max-width: 1600px;
+  height: 550px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.AboutUs-text h2 {
+  font-family: var(--primaryfont);
+  font-size: 20px;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.AboutUs-text p {
+  font-family: var(--secondaryfont);
+  font-size: 20px;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.AboutUs-text li {
+  font-family: var(--secondaryfont);
+  font-size: 20px;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+/*create form */
+form {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 4px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  box-shadow: rgb(0, 0, 0) 0px 5px 10px;
+  border-radius: 10px;
+}
+
+label,
+input {
+  display: block;
+
+}
+
+input,
+textarea {
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  border: 1px solid black;
+  border-radius: 4px;
+  box-sizing: border-box;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+form button {
+  background: var(--secondary);
+  border: 0;
+  width: 200px;
+  height: 50px;
+  color: #fff;
+  padding: 10px;
+  font-family: var(--secondaryfont);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/*login sign form*/
+.Login-form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 4px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  box-shadow: rgb(0, 0, 0) 0px 5px 10px;
+  border-radius: 10px;
+}
+
+.Login-form h1 {
+  text-align: center;
+}
+
+.Login-form button {
+  width: 100px;
+  height: 50px;
+  columns: #fff;
+  cursor: pointer;
+  background: var(--secondary);
+  border: 0;
+  border-radius: 4px;
+  font-family: var(--secondaryfont);
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.Signup-form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 4px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  box-shadow: rgb(0, 0, 0) 0px 5px 10px;
+  border-radius: 10px;
+}
+
+.Signup-form h1 {
+  text-align: center;
+}
+
+.Signup-form button {
+  width: 100px;
+  height: 50px;
+  columns: #fff;
+  cursor: pointer;
+  background: var(--secondary);
+  border: 0;
+  border-radius: 4px;
+  font-family: var(--secondaryfont);
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/*Blog details*/
+div .blog-details {
+  max-width: 1600px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 4px;
+  padding: 20px;
+  box-shadow: rgb(0, 0, 0) 0px 5px 10px;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.blog-details h2 {
+  font-family: var(--primaryfont);
+  font-size: 20px;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  text-decoration: underline;
+}
