@@ -18,7 +18,6 @@ const BlogDetails = () => {
             const json = await response.json();
             if (response.ok) {
                 setBlog(json);
-                dispatch({ type: 'SET_BLOG', payload: json });
             } else {
                 console.error('Failed to fetch blog details');
             }

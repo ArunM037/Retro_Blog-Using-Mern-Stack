@@ -1,29 +1,28 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useBlogContext } from '../Hooks/useBlogContext';
 
-const Blogs = ({ blog }) => {
+const Blogs = () => {
     const navigate = useNavigate();
-    const { dispatch } = useBlogContext();
+    const { blogs, dispatch } = useBlogContext();
 
     const handleClick = async (id) => {
-        console.log('Attempting to delete blog with id:', id);
+        try {
+            const response = await fetch('/api/blog/' + id, {
+                method: 'DELETE',
+            });
 
-        const response = await fetch('/api/blog/' + id, {
-            method: 'DELETE',
-        });
-
-        const json = await response.json();
-        if (response.ok) {
-            dispatch({ type: 'DELETE_BLOG', payload: json });
-            console.log('Blog deleted', json);
-        } else {
-            console.error('Failed to delete blog:', json);
+            const json = await response.json();
+            if (response.ok) {
+                dispatch({ type: 'DELETE_BLOG', payload: json });
+            }
+        } catch (error) {
+            console.error('Error while deleting blog:', error);
         }
     };
 
     return (
         <div className="blogs-container">
-            {blog && blog.map(blogs => (
+            {blogs && blogs.map(blogs => (
                 <div key={blogs._id} className="Home-blogs">
                     <div className="Blog-img-container">
                         <img src={blogs.img_url} alt="Blog" className="Blog-img" />

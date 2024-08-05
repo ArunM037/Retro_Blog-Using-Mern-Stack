@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useBlogContext } from '../Hooks/useBlogContext';
 
 const UpdateBlog = () => {
@@ -10,7 +10,7 @@ const UpdateBlog = () => {
     const [imgUrl, setImgUrl] = useState('');
     const [error, setError] = useState(null);
     const { id } = useParams();
-    //const navigate = useNavigate();
+    const navigate = useNavigate();
     const { dispatch } = useBlogContext();
 
     useEffect(() => {
@@ -26,6 +26,7 @@ const UpdateBlog = () => {
                     setAuthor(json.author);
                     setBody(json.body);
                     setImgUrl(json.img_url);
+                    dispatch({ type: 'UPDATE_BLOG', payload: json });
                 } else {
                     setError(json.error);
                 }
@@ -35,7 +36,7 @@ const UpdateBlog = () => {
         };
 
         fetchBlog();
-    }, [id]);
+    }, [id, dispatch]);
 
     const handleClick = async (e) => {
         e.preventDefault();
@@ -58,7 +59,7 @@ const UpdateBlog = () => {
                 setError(null);
                 console.log('Updated blog', json);
                 dispatch({ type: 'UPDATE_BLOG', payload: json });
-                //navigate(`/blogs/${id}`);
+                navigate(`/blogs/${id}`);
             }
         } catch (err) {
             setError('Failed to update blog.');

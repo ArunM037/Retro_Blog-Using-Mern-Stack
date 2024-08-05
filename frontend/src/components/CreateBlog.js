@@ -1,5 +1,5 @@
 import { useState } from 'react';
-//import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useBlogContext } from '../Hooks/useBlogContext';
 
 const CreateBlogs = () => {
@@ -9,7 +9,7 @@ const CreateBlogs = () => {
     const [body, setBody] = useState('');
     const [imgUrl, setImgUrl] = useState('');
     const [error, setError] = useState(null);
-    //const navigate = useNavigate();
+    const navigate = useNavigate();
     const { dispatch } = useBlogContext();
 
     const handleClick = async (e) => {
@@ -39,7 +39,7 @@ const CreateBlogs = () => {
             setError(null)
             dispatch({ type: 'CREATE_BLOG', payload: json })
             console.log('new blog added', json)
-            //navigate('/')
+            navigate('/')
         }
     }
 

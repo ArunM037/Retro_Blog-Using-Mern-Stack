@@ -7,11 +7,17 @@ export const BlogContext = createContext();
 export const BlogsReducer = (state, action) => {
     switch (action.type) {
         case 'SET_BLOGS':
-            return { blogs: action.payload };
+            return {
+                blogs: action.payload
+            };
         case 'CREATE_BLOG':
-            return { blogs: [action.payload, ...state.blogs] };
+            return {
+                blogs: [action.payload, ...state.blogs]
+            };
         case 'DELETE_BLOG':
-            return { blogs: state.blogs.filter((b) => b._id !== action.payload._id) };
+            return {
+                blogs: state.blogs.filter((b) => b._id !== action.payload._id)
+            };
         case 'UPDATE_BLOG':
             return {
                 blogs: state.blogs.map((b) =>
@@ -23,9 +29,12 @@ export const BlogsReducer = (state, action) => {
     }
 };
 
+
 // BlogContextProvider component
 export const BlogContextProvider = ({ children }) => {
-    const [state, dispatch] = useReducer(BlogsReducer, { blogs: null });
+    const [state, dispatch] = useReducer(BlogsReducer, {
+        blogs: [],
+    });
 
     return (
         <BlogContext.Provider value={{ ...state, dispatch }}>
