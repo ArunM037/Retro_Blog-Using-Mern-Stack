@@ -204,8 +204,10 @@ div .blog-icons span {
 
 .AboutUs-text h2 {
   font-family: var(--primaryfont);
-  font-size: 20px;
+  font-size: 30px;
+  font-weight: 200;
   text-align: center;
+  text-decoration: underline;
   margin: 0;
   padding: 0;
 }
@@ -428,4 +430,39 @@ div .no-blogs {
 div .profile-blogs a {
   text-decoration: none;
   color: black;
+}
+
+/* ql styles*/
+.ql-container {
+  min-height: 200px;
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 4px;
+}
+
+.ql-editor {
+  min-height: 200px;
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 10px;
+}
+
+.ql-toolbar {
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.ql-editor.ql-blank::before {
+  color: #ccc;
+  font-style: italic;
+}
+
+.quill-container {
+  margin: 10px;
 }

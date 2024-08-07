@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useBlogContext } from '../Hooks/useBlogContext';
 import { useAuthContext } from '../Hooks/useAuthContext';
+import DOMPurify from 'dompurify';
+import 'react-quill/dist/quill.snow.css';
 
 const BlogDetails = () => {
     const { id } = useParams(); // Ensure this matches your route parameter
@@ -36,7 +38,7 @@ const BlogDetails = () => {
                     <h5>Author : {blog.author}</h5>
                     <p>Created At : {blog.createdAt}</p>
                     <h3>About : {blog.content}</h3>
-                    <p>{blog.body}</p>
+                    <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(blog.body) }} />
                 </div>}
         </div>
     );

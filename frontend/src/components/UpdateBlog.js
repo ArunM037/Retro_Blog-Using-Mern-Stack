@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useBlogContext } from '../Hooks/useBlogContext';
 import { useAuthContext } from '../Hooks/useAuthContext';
+import Reactquill from "react-quill";
+import 'react-quill/dist/quill.snow.css';
 
 const UpdateBlog = () => {
     const [title, setTitle] = useState('');
@@ -86,7 +88,9 @@ const UpdateBlog = () => {
                 <label>Blog Image(Url):</label>
                 <input type="url" name="img_url" value={imgUrl} onChange={(e) => setImgUrl(e.target.value)} />
                 <label>Blog Body:</label>
-                <textarea name="body" cols="100" rows="10" value={body} onChange={(e) => setBody(e.target.value)}></textarea>
+                <div className='quill-container'>
+                    <Reactquill theme="snow" value={body} onChange={setBody} />
+                </div>
                 <button type="submit" onClick={handleClick}>Update Blog</button>
                 {error && <div className="error">{error}</div>}
             </form>
