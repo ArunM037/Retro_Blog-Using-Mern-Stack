@@ -1,18 +1,21 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useBlogContext } from '../Hooks/useBlogContext';
+import { useAuthContext } from '../Hooks/useAuthContext';
 
 const BlogDetails = () => {
     const { id } = useParams(); // Ensure this matches your route parameter
     const [blog, setBlog] = useState(null);
     const { dispatch } = useBlogContext();
+    const { user } = useAuthContext();
 
     useEffect(() => {
         const fetchBlog = async () => {
             const response = await fetch('/api/blog/' + id, {
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
                 }
             });
             const json = await response.json();
@@ -23,7 +26,7 @@ const BlogDetails = () => {
             }
         };
         fetchBlog();
-    }, [id, dispatch]);
+    }, [id, dispatch, user]);
 
     return (
         <div className="blog-details">

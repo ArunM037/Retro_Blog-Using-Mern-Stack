@@ -1,47 +1,52 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBlogContext } from '../Hooks/useBlogContext';
+import { useAuthContext } from '../Hooks/useAuthContext';
 
 const CreateBlogs = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    const [author, setAuthor] = useState('');
     const [body, setBody] = useState('');
     const [imgUrl, setImgUrl] = useState('');
     const [error, setError] = useState(null);
     const navigate = useNavigate();
     const { dispatch } = useBlogContext();
+    const { user } = useAuthContext();
 
     const handleClick = async (e) => {
+        if (!user) {
+            setError('You must be logged in')
+            return
+        }
         e.preventDefault();
 
-        const blog = { title, content, author, body, img_url: imgUrl };
+        const blog = { title, content, author: user.username, body, img_url: imgUrl };
 
         const response = await fetch('/api/blog', {
             method: 'POST',
             body: JSON.stringify(blog),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
             }
-        })
+        });
 
-        const json = await response.json()
+        const json = await response.json();
 
         if (!response.ok) {
-            setError(json.error)
+            setError(json.error);
         }
         if (response.ok) {
-            setTitle('')
-            setContent('')
-            setAuthor('')
-            setImgUrl('')
-            setBody('')
-            setError(null)
-            dispatch({ type: 'CREATE_BLOG', payload: json })
-            console.log('new blog added', json)
-            navigate('/')
+            setTitle('');
+            setContent('');
+            setImgUrl('');
+            setBody('');
+            setError(null);
+            dispatch({ type: 'CREATE_BLOG', payload: json });
+            console.log('New blog added', json);
+            navigate('/');
         }
-    }
+    };
 
     return (
         <div className="create">
@@ -52,7 +57,7 @@ const CreateBlogs = () => {
                 <label>Blog Content:</label>
                 <input type="text" name="content" value={content} onChange={(e) => setContent(e.target.value)} />
                 <label>Blog Author:</label>
-                <input type="text" name="author" value={author} onChange={(e) => setAuthor(e.target.value)} />
+                <input type="text" name="author" value={user?.username || ' '} readOnly />
                 <label>Blog Image(Url):</label>
                 <input type="url" name="img_url" value={imgUrl} onChange={(e) => setImgUrl(e.target.value)} />
                 <label>Blog Body:</label>

@@ -10,6 +10,10 @@ export const BlogsReducer = (state, action) => {
             return {
                 blogs: action.payload
             };
+        case 'USER_BLOGS':
+            return {
+                blogs: action.payload
+            };
         case 'CREATE_BLOG':
             return {
                 blogs: [action.payload, ...state.blogs]

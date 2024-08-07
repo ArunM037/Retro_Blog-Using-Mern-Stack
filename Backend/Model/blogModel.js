@@ -23,6 +23,10 @@ const blogSchema = new Schema({
     img_url: {
         type: String,
         required: true
+    },
+    user_id: {
+        type: String,
+        required: true
     }
 }, { timestamps: true, collection: "Blog" })
 

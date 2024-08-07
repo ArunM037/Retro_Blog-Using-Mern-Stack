@@ -1,16 +1,18 @@
 import { useEffect } from "react";
 import Blogs from "../components/Blogs";
 import { useBlogContext } from "../Hooks/useBlogContext";
+import { useAuthContext } from "../Hooks/useAuthContext";
 
 const Home = () => {
     const { dispatch } = useBlogContext();
+    const { user } = useAuthContext()
 
     useEffect(() => {
         const fetchBlog = async () => {
             const response = await fetch('/api/blog', {
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Authorization': `Bearer ${user.token}`
                 }
             });
             const json = await response.json();
@@ -19,7 +21,7 @@ const Home = () => {
             }
         };
         fetchBlog();
-    }, [dispatch]);
+    }, [dispatch, user]);
 
     return (
         <div className="Home">
@@ -32,5 +34,4 @@ const Home = () => {
         </div>
     );
 };
-
 export default Home;

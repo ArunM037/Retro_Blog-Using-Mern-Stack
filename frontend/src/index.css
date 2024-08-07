@@ -385,3 +385,47 @@ div .footer-links {
 .footer p {
   text-align: center;
 }
+
+/*Profile */
+div .profile {
+  max-width: 1600px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-title {
+  text-decoration: underline;
+}
+
+div .profile-blogs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 10px;
+  border: 1px solid black;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: rgb(0, 0, 0) 0px 5px 10px;
+}
+
+div .no-blogs {
+  text-align: center;
+  margin: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: underline;
+  border: 1px solid red;
+  padding: 10px;
+  border-radius: 10px;
+  color: red;
+}
+
+div .profile-blogs a {
+  text-decoration: none;
+  color: black;
+}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useBlogContext } from '../Hooks/useBlogContext';
+import { useAuthContext } from '../Hooks/useAuthContext';
 
 const UpdateBlog = () => {
     const [title, setTitle] = useState('');
@@ -12,18 +13,23 @@ const UpdateBlog = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const { dispatch } = useBlogContext();
+    const { user } = useAuthContext();
 
     useEffect(() => {
 
         const fetchBlog = async () => {
             try {
-                const response = await fetch(`/api/blog/${id}`);
+                const response = await fetch(`/api/blog/${id}`, {
+                    headers: {
+                        'authorization': `Bearer ${user.token}`
+                    }
+                });
                 const json = await response.json();
 
                 if (response.ok) {
                     setTitle(json.title);
                     setContent(json.content);
-                    setAuthor(json.author);
+                    setAuthor(user.username);
                     setBody(json.body);
                     setImgUrl(json.img_url);
                     dispatch({ type: 'UPDATE_BLOG', payload: json });
@@ -36,7 +42,7 @@ const UpdateBlog = () => {
         };
 
         fetchBlog();
-    }, [id, dispatch]);
+    }, [id, dispatch, user]);
 
     const handleClick = async (e) => {
         e.preventDefault();
@@ -48,7 +54,8 @@ const UpdateBlog = () => {
                 method: 'PATCH',
                 body: JSON.stringify(blog),
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
                 }
             });
             const json = await response.json();
@@ -75,7 +82,7 @@ const UpdateBlog = () => {
                 <label>Blog Content:</label>
                 <input type="text" name="content" value={content} onChange={(e) => setContent(e.target.value)} />
                 <label>Blog Author:</label>
-                <input type="text" name="author" value={author} onChange={(e) => setAuthor(e.target.value)} />
+                <input type="text" name="author" value={author} readOnly />
                 <label>Blog Image(Url):</label>
                 <input type="url" name="img_url" value={imgUrl} onChange={(e) => setImgUrl(e.target.value)} />
                 <label>Blog Body:</label>

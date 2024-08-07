@@ -12,7 +12,7 @@ const Login = () => {
         await login(email, password);
     };
     return (
-        <div classname="Login-container">
+        <div className="Login-container">
             <form className="Login-form" onSubmit={handleSubmit}>
                 <h1>Login</h1>
                 <label>Enter Your Email</label>
