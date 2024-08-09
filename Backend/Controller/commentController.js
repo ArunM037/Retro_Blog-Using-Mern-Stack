@@ -56,13 +56,15 @@ const deletecomment = async (req, res) => {
 
 // Update a comment
 const Updatecomment = async (req, res) => {
-    const { Blog_id, author, content } = req.body;
-    console.log(Blog_id, author, content)
+    const { Blog_id, author, Content } = req.body;
     const { id } = req.params;
-    console.log(id)
     const user_id = req.user.id;
     try {
-        const updatedcomment = await Comment.findByIdAndUpdate(id, { Blog_id, user_id, author, content }, { new: true });
+        const updatedcomment = await Comment.findByIdAndUpdate(
+            id,
+            { Blog_id, user_id, author, content: Content },
+            { new: true, runValidators: true }
+        );
         if (!updatedcomment) {
             return res.status(404).json({ error: 'Comment not found' });
         }
@@ -71,6 +73,7 @@ const Updatecomment = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 };
+
 
 module.exports = {
     getcomments,

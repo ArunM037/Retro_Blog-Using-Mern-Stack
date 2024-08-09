@@ -22,8 +22,10 @@ export const CommentReducer = (state, action) => {
             }
         case 'UPDATE_COMMENT':
             return {
-                comments: state.comments.map((c) => c._id === action.payload._id ? action.payload : c)
-            }
+                comments: state.comments.map((c) =>
+                    c._id === action.payload._id ? action.payload : c
+                )
+            };
         default:
             return state;
     }
