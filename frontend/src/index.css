@@ -355,6 +355,15 @@ div .blog-details {
   text-decoration: underline;
 }
 
+.blogdetails-img {
+  display: flex;
+  justify-content: center;
+}
+
+.blogdetails-img img {
+  border-radius: 10px;
+}
+
 /*Foooter*/
 div .footer {
   max-width: 1600px;
@@ -465,4 +474,72 @@ div .profile-blogs a {
 
 .quill-container {
   margin: 10px;
+}
+
+/*Loading */
+div .loading {
+  max-height: 1600px;
+  max-width: 1600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+}
+
+/*Comment-Form*/
+
+div .comment-form form {
+  max-width: 1600px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 20px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: rgb(246, 244, 244) 0px 5px 10px;
+  gap: 10px;
+}
+
+.comment-form form button {
+  border: none;
+  background: #3662f5;
+  color: #fff;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100px;
+  height: 50px;
+}
+
+.comment-form form input {
+  border: none;
+  border-bottom: 3px solid black;
+  padding: 8px;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.comment-form form input:focus {
+  border-bottom: 3px solid blue;
+  outline: none;
+}
+
+div .comment-container {
+  display: block;
+  gap: 10px;
+  margin: 10px;
+  border: 1px solid black;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: rgb(246, 244, 244) 0px 5px 10px;
+}
+
+div .comment-icons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin: 10px;
+  cursor: pointer;
 }

@@ -12,6 +12,8 @@ import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Footer from './components/Footer';
+
+//Routes Website
 function App() {
   const { user } = useAuthContext()
   return (
@@ -20,8 +22,8 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={user ? <Home /> : <Navigate to='/login' />} />
-          <Route path="/create" element={<CreateBlogs />} />
-          <Route path='/About' element={<AboutUs />} />
+          <Route path="/create" element={user ? <CreateBlogs /> : <Navigate to='/login' />} />
+          <Route path='/About' element={user ? <AboutUs /> : <Navigate to='/login' />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/signup' element={!user ? <SignUp /> : <Navigate to='/' />} />
           <Route path='/login' element={!user ? <Login /> : <Navigate to='/' />} />

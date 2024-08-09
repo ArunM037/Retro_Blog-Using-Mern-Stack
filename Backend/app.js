@@ -4,7 +4,7 @@ const blogs = require('./routes/blogs')
 const mongoose = require('mongoose');
 const morgan = require('morgan')
 const user = require('./routes/user')
-
+const comments = require('./routes/comment')
 
 const app = express();
 
@@ -16,6 +16,7 @@ app.use(express.json());
 //api routes
 app.use('/api/blog', blogs)
 app.use('/api/post', user)
+app.use('/api/comment', comments)
 
 //connect to database && listen to a request
 mongoose.connect(process.env.URI)

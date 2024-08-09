@@ -13,7 +13,7 @@ const Blogs = () => {
                     </div>
                     <Link to={`/blogs/${blogs._id}`}>
                         <h2 className="Blog-title">{blogs.title}</h2>
-                        <h3 className="Blog-author">{blogs.author}</h3>
+                        <h3 className="Blog-author">By {blogs.author}</h3>
                         <p className="Blog-content">{blogs.content}</p>
                         <p>{blogs.createdAt}</p>
                     </Link>
