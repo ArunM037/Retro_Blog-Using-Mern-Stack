@@ -10,7 +10,12 @@ export const CommentReducer = (state, action) => {
     switch (action.type) {
         case 'SET_COMMENTS':
             return {
-                comments: action.payload
+                ...state, comments: action.payload
+            };
+        case 'SINGLE_COMMENT':
+            return {
+                ...state,
+                comments: action.payload,
             };
         case 'CREATE_COMMENT':
             return {

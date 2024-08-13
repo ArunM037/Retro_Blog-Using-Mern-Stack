@@ -1,5 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useAuthContext } from './Hooks/useAuthContext';
+
 
 //import componets
 import Navbar from './components/Navbar';
@@ -12,6 +15,7 @@ import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Footer from './components/Footer';
+import CommrentOne from './components/CommrentOne';
 
 //Routes Website
 function App() {
@@ -29,10 +33,23 @@ function App() {
           <Route path='/login' element={!user ? <Login /> : <Navigate to='/' />} />
           <Route path="/blogs/update/:id" element={<UpdateBlog />} />
           <Route path='/blogs/:id' element={<BlogDetails />} />
+          <Route path='/blogs/post/:id' element={<CommrentOne />} />
         </Routes>
         <Footer />
       </BrowserRouter>
+      <ToastContainer containerId={"Blog request"}
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored" />
     </div>
+
   );
 }
 

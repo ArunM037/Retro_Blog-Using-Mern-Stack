@@ -3,6 +3,8 @@ import Blogs from "../components/Blogs";
 import { useBlogContext } from "../Hooks/useBlogContext";
 import { useAuthContext } from "../Hooks/useAuthContext";
 import load from '../Assets/load2.svg'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Home = () => {
     const { dispatch } = useBlogContext();
@@ -44,6 +46,17 @@ const Home = () => {
                 </div>
             }
             <Blogs />
+            <ToastContainer containerId={"toast-container"}
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored" />
         </div>
     );
 };

@@ -3,6 +3,8 @@ import { useAuthContext } from "../Hooks/useAuthContext";
 import { useBlogContext } from "../Hooks/useBlogContext";
 import { Link, useNavigate } from "react-router-dom";
 import load from "../Assets/load2.svg";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Profile = () => {
     const { user } = useAuthContext();
@@ -34,7 +36,16 @@ const Profile = () => {
                 const json = await response.json();
                 dispatch({ type: 'USER_BLOGS', payload: json });
             } catch (error) {
-                console.error(error.message);
+                toast.error(error.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
             } finally {
                 setIsloading(false);
             }
@@ -59,12 +70,30 @@ const Profile = () => {
             const json = await response.json();
             if (response.ok) {
                 dispatch({ type: 'DELETE_BLOG', payload: json });
+                toast.success('Blog deleted successfully', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                })
             }
         } catch (error) {
-            console.error('Error while deleting blog:', error);
+            toast.error(error.message, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
         }
     };
-
     return (
         <div className="profile">
             <h1>Welcome! {user?.username}</h1>
@@ -94,6 +123,17 @@ const Profile = () => {
                     </div>
                 )
             )}
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored" />
         </div>
     );
 };

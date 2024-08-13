@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useBlogContext } from '../Hooks/useBlogContext';
 import { useAuthContext } from '../Hooks/useAuthContext';
 import Reactquill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CreateBlogs = () => {
     const [title, setTitle] = useState('');
@@ -11,7 +12,6 @@ const CreateBlogs = () => {
     const [body, setBody] = useState('');
     const [imgUrl, setImgUrl] = useState('');
     const [error, setError] = useState(null);
-    const navigate = useNavigate();
     const { dispatch } = useBlogContext();
     const { user } = useAuthContext();
 
@@ -37,6 +37,16 @@ const CreateBlogs = () => {
 
         if (!response.ok) {
             setError(json.error);
+            toast.error(error, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
         }
         if (response.ok) {
             setTitle('');
@@ -45,8 +55,16 @@ const CreateBlogs = () => {
             setBody('');
             setError(null);
             dispatch({ type: 'CREATE_BLOG', payload: json });
-            console.log('New blog added', json);
-            navigate('/');
+            toast.success('Blog added successfully', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            })
         }
     };
 
@@ -67,7 +85,17 @@ const CreateBlogs = () => {
                     <Reactquill theme="snow" value={body} onChange={setBody} />
                 </div>
                 <button type="submit" onClick={handleClick}>Add Blog</button>
-                {error && <div className="error">{error}</div>}
+                <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="colored" />
             </form>
         </div>
     );

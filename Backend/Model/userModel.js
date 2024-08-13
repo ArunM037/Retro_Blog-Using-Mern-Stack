@@ -27,6 +27,11 @@ userSchema.statics.signup = async function (username, email, password) {
     if (!username || !email || !password) {
         throw new Error('All fields must be filled');
     }
+    const name = await this.findOne({ username });
+    console.log(name)
+    if (name) {
+        throw new Error('Username already exists');
+    }
     if (!validator.isEmail(email)) {
         throw new Error('Email is not valid');
     }

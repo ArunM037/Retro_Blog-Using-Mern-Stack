@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useBlogContext } from '../Hooks/useBlogContext';
 import { useAuthContext } from '../Hooks/useAuthContext';
 import DOMPurify from 'dompurify';
 import 'react-quill/dist/quill.snow.css';
 import load from '../Assets/load2.svg';
 import Comment from './Comment';
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const BlogDetails = () => {
     const { id } = useParams(); // Ensure this matches your route parameter
@@ -13,7 +16,10 @@ const BlogDetails = () => {
     const { dispatch } = useBlogContext();
     const { user } = useAuthContext();
     const [isloading, setIsloading] = useState(true);
-
+    const navigate = useNavigate()
+    if (!user) {
+        navigate('/login')
+    }
     useEffect(() => {
         const fetchBlog = async () => {
             setIsloading(true);
@@ -40,7 +46,7 @@ const BlogDetails = () => {
             }
         };
         fetchBlog();
-    }, [id, dispatch, user]);
+    }, [id, dispatch, user, navigate]);
 
     return (
         <div>
@@ -50,7 +56,7 @@ const BlogDetails = () => {
                     <div key={blog._id} className="blog-details">
                         <h2>{blog.title}</h2>
                         <h5>Author : {blog.author}</h5>
-                        <p>Created At : {blog.createdAt}</p>
+                        <p>Created At : {formatDistanceToNow(new Date(blog.createdAt), { addSuffix: true })}</p>
                         <div className="blogdetails-img">
                             <img src={blog.img_url} alt="img" width={1000} height={500} />
                         </div>
@@ -61,6 +67,17 @@ const BlogDetails = () => {
             <div className="comment-container">
                 <Comment />
             </div>
+            <ToastContainer containerId={"Blog request"}
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored" />
         </div>
     );
 }

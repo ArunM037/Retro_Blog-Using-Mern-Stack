@@ -1,4 +1,5 @@
 const Comment = require('../Model/commentModel');
+const mongoose = require('mongoose');
 
 // Get all comments for a specific blog post
 const getcomments = async (req, res) => {
@@ -15,22 +16,29 @@ const getcomments = async (req, res) => {
 const getcomment = async (req, res) => {
     const { id } = req.params;
     try {
+        // Check if the ID is valid
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            console.log("Invalid Comment ID:", id);
+            return res.status(404).json({ error: 'No such comment' });
+        }
+        // Find the comment by ID
         const comment = await Comment.findById(id);
         if (!comment) {
             return res.status(404).json({ error: 'Comment not found' });
         }
+
         res.status(200).json(comment);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
 };
 
+
+
 // Post a new comment
 const postcomment = async (req, res) => {
     const { Blog_id, author, Content } = req.body;
     const user_id = req.user.id;
-    console.log(Blog_id, author, Content)
-    console.log(user_id)
     try {
         const newcomment = await Comment.create({ Blog_id, user_id, author, content: Content });
         res.status(200).json(newcomment);

@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useAuthContext } from '../Hooks/useAuthContext';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useCommentContext } from '../Hooks/useCommentContext';
+import load from '../Assets/load2.svg';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 const Comment = () => {
     const { user } = useAuthContext();
     const [Content, setContent] = useState('');
@@ -33,7 +37,16 @@ const Comment = () => {
                 }
             } catch (error) {
                 setError(error)
-                console.log(error)
+                toast.error(error.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
             }
         }
         fetchcomment();
@@ -54,9 +67,31 @@ const Comment = () => {
         try {
             if (response.ok) {
                 dispatch({ type: 'CREATE_COMMENT', payload: json })
-                console.log('Comment created successfully', json)
+                toast.success('Comment created successfully', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                })
                 setContent('')
                 setEditingCommentId(null)
+            }
+            if (!response.ok) {
+                toast.error('fill all fields', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+
             }
         } catch (error) {
             setError(error)
@@ -88,13 +123,33 @@ const Comment = () => {
             const json = await response.json();
             if (response.ok) {
                 dispatch({ type: 'UPDATE_COMMENT', payload: json })
-                console.log('Comment updated successfully', json)
+                toast.success('Comment Updated successfully', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                })
                 setEditingCommentId(null)
                 setContent('')
             }
+            if (!response.ok) {
+                toast.error('fill all fields', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+            }
         } catch (error) {
             setError(error)
-            console.log('Error updating comment', error)
         }
     }
     // Delete a comment
@@ -113,11 +168,31 @@ const Comment = () => {
             const json = await response.json();
             if (response.ok) {
                 dispatch({ type: 'DELETE_COMMENT', payload: json })
-                console.log('Comment deleted successfully')
+                toast.success('Comment deleted successfully', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                })
+            }
+            if (!response.ok) {
+                toast.error('Error deleting comment', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
             }
         } catch (error) {
             setError(error)
-            console.log('Error deleting comment', error)
         }
     }
     return (
@@ -130,17 +205,39 @@ const Comment = () => {
                     <button type="submit" onClick={(e) => editingCommentId ? handleUpdate(e) : handlePost(e)}>{editingCommentId ? 'edit' : 'Post'}</button>
                 </form>
             </div>
-            {comments && comments.map(comment => (
-                <div key={comment._id} className="comment-container">
-                    <h4>{comment.author}-{comment.createdAt}</h4>
-                    <p>{comment.content}</p>
-                    <div className="comment-icons">
-                        <span className="material-symbols-outlined" onClick={() => startEditing(comment._id, comment.content)}>edit</span>
-                        <span className="material-symbols-outlined" onClick={() => handleDelete(comment._id)}>delete</span>
+            <div className='comment all-container'>
+                {comments && Array.isArray(comments) ? (
+                    comments.map(comment => (
+                        <div key={comment._id} className="comment-container">
+                            <Link to={`/blogs/post/${comment._id}`}>
+                                <h4>{comment.author}--{formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true })}</h4>
+                                <p>{comment.content}</p>
+                            </Link>
+                            {user.username === comment.author &&
+                                <div className="comment-icons">
+                                    <span className="material-symbols-outlined" onClick={() => startEditing(comment._id, comment.content)}>edit</span>
+                                    <span className="material-symbols-outlined" onClick={() => handleDelete(comment._id)}>delete</span>
+                                </div>}
+                            {Error && <div className="error">{Error}</div>}
+                        </div>
+                    ))
+                ) : (
+                    <div className="loading">
+                        <img src={load} alt="loading" width={300} height={300} />
                     </div>
-                    {Error && <div className="error">{Error}</div>}
-                </div>
-            ))}
+                )}
+            </div>
+            <ToastContainer containerId={"comment request"}
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored" />
         </div>
     );
 }

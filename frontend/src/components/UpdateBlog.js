@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useBlogContext } from '../Hooks/useBlogContext';
 import { useAuthContext } from '../Hooks/useAuthContext';
 import Reactquill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
 import load from '../Assets/load2.svg';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const UpdateBlog = () => {
     const [title, setTitle] = useState('');
@@ -12,10 +14,8 @@ const UpdateBlog = () => {
     const [author, setAuthor] = useState('');
     const [body, setBody] = useState('');
     const [imgUrl, setImgUrl] = useState('');
-    const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const { id } = useParams();
-    const navigate = useNavigate();
     const { dispatch } = useBlogContext();
     const { user } = useAuthContext();
     const [isAuthorized, setIsAuthorized] = useState(false);
@@ -46,11 +46,18 @@ const UpdateBlog = () => {
                     }
                     dispatch({ type: 'UPDATE_BLOG', payload: json });
 
-                } else {
-                    setError(json.error);
                 }
-            } catch (err) {
-                setError('Failed to fetch blog data.');
+            } catch (error) {
+                toast.error(error.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
             } finally {
                 setLoading(false);
             }
@@ -61,7 +68,6 @@ const UpdateBlog = () => {
     const handleClick = async (e) => {
         e.preventDefault();
         if (!isAuthorized) {
-            setError('You are not authorized to update this blog.');
             return;
         }
 
@@ -78,16 +84,35 @@ const UpdateBlog = () => {
             });
             const json = await response.json();
 
-            if (!response.ok) {
-                setError(json.error);
-            } else {
-                setError(null);
-                console.log('Updated blog', json);
+            if (response.ok) {
+                setTitle('');
+                setContent('');
+                setImgUrl('');
+                setBody('');
                 dispatch({ type: 'UPDATE_BLOG', payload: json });
-                navigate(`/blogs/${id}`);
+                toast.success('Blog Updated successfully', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                })
+
             }
-        } catch (err) {
-            setError('Failed to update blog.');
+        } catch (error) {
+            toast.error(error, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
         }
     };
 
@@ -111,9 +136,18 @@ const UpdateBlog = () => {
                         <Reactquill theme="snow" value={body} onChange={setBody} />
                     </div>
                     <button type="submit" onClick={handleClick}>Update Blog</button>
-                    {error && <div className="error">{error}</div>}
                 </form>) : (<h1>Unauthorized Access</h1>))}
-
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored" />
         </div>
     );
 }

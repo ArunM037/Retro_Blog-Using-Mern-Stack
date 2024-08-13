@@ -369,7 +369,6 @@ div .footer {
   max-width: 1600px;
   margin: 0 auto;
   background: #fff;
-  border-radius: 4px;
   padding: 20px;
   margin: 10px;
   border-top: 1px solid black;
@@ -541,5 +540,30 @@ div .comment-icons {
   justify-content: flex-end;
   gap: 10px;
   margin: 10px;
+  cursor: pointer;
+}
+
+div .comment-container a {
+  text-decoration: none;
+  color: black;
+}
+
+/*Single Comment*/
+
+div .commentSingle-container {
+  max-width: 1600px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid black;
+  padding: 20px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: rgb(246, 244, 244) 0px 5px 10px;
+  gap: 10px;
+}
+
+.commentSingle-container span {
   cursor: pointer;
 }
