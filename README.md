@@ -15,7 +15,7 @@ Create an `.env` file in the backend folder and add the following variables:
 <pre><code>
 PORT=your_port_number
 MONGO_URI=your_mongodb_uri
-SECRET=your_jwt_secret_code
+SECRETE=your_jwt_secret_code
 </code></pre>
 
 ## Installation
