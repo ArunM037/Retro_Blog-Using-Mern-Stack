@@ -227,7 +227,7 @@ const Comment = () => {
                     </div>
                 )}
             </div>
-            <ToastContainer containerId={"comment request"}
+            <ToastContainer
                 position="top-right"
                 autoClose={5000}
                 hideProgressBar={false}

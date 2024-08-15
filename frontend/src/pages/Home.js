@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Blogs from "../components/Blogs";
 import { useBlogContext } from "../Hooks/useBlogContext";
 import { useAuthContext } from "../Hooks/useAuthContext";
-import load from '../Assets/load2.svg'
+import load from '../Assets/load2.svg';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
