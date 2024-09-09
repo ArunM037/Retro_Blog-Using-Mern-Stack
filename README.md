@@ -11,7 +11,6 @@ A retro-themed blog website built with the MERN stack that allows users to creat
 ## Environment Variables
 
 Create an `.env` file in the backend folder and add the following variables:
-
 <pre><code>
 PORT=your_port_number
 MONGO_URI=your_mongodb_uri
